@@ -14,7 +14,6 @@ library(dplyr)
 ```
 
 ```{r}
-fix(Boston)
 names(Boston)
 ```
 
@@ -30,7 +29,7 @@ confint(lm.fit)
 ```
 
 ```{r}
-predict (lm.fit, data.frame(lstat=c(5,10 ,15)), interval ="confidence")
+predictions = predict(lm.fit, data.frame(lstat=c(5,10 ,15)), interval ="confidence")
 ```
 ```{r}
 lstat = Boston$lstat
@@ -42,5 +41,24 @@ plot(predict (lm.fit), residuals (lm.fit), pch=20)
 plot(predict (lm.fit), rstudent (lm.fit), pch=20)
 plot(hatvalues (lm.fit), pch=20)
 which.max(hatvalues (lm.fit))
+```
+```{r}
+lm.fit1 = lm(data = Boston, medv~lstat+age)
+summary(lm.fit1)
+```
+
+```{r}
+lm.fit.all = lm(data = Boston, medv~.)
+summary(lm.fit.all)
+```
+
+```{r}
+library(car)
+vifs = vif(lm.fit.all)
+```
+
+```{r}
+for(i in vifs)
+  print(i)
 ```
 

@@ -1,0 +1,46 @@
+---
+title: "ISLR Chr.3"
+author: "McCourt Hu"
+date: "9/18/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ISLR)
+library(MASS)
+library(ggplot2)
+library(dplyr)
+```
+
+```{r}
+fix(Boston)
+names(Boston)
+```
+
+```{r}
+lm.fit = lm(Boston$medv~Boston$lstat)
+summary(lm.fit)
+```
+
+```{r}
+names(lm.fit)
+coef(lm.fit)
+confint(lm.fit)
+```
+
+```{r}
+predict (lm.fit, data.frame(lstat=c(5,10 ,15)), interval ="confidence")
+```
+```{r}
+lstat = Boston$lstat
+medv = Boston$medv
+par(mfrow=c(2,2))
+plot(lstat, medv, pch=20)
+abline(lm.fit, col="red", lwd=3)
+plot(predict (lm.fit), residuals (lm.fit), pch=20)
+plot(predict (lm.fit), rstudent (lm.fit), pch=20)
+plot(hatvalues (lm.fit), pch=20)
+which.max(hatvalues (lm.fit))
+```
+
